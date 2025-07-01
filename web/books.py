@@ -11,3 +11,8 @@ router = APIRouter(prefix="/books")
 @router.post("")
 def register_book(book: BookIn):
     return books_service.register_book(book.title,book.author)
+
+
+@router.get("")
+def get_book_list():
+    return books_service.get_book_list()
