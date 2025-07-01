@@ -20,3 +20,6 @@ def borrow_book(borrow : BorrowIn) -> bool:
 def get_books_by_month(borrow_month : str) -> List[dict]:
     return service.get_books_by_month(borrow_month)
 
+@router.get("/{borrower}/books")
+def borrow_history(borrower : str) -> dict:
+    return service.borrow_history(borrower)

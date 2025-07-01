@@ -16,3 +16,13 @@ def get_books_by_month(borrow_month : str) -> List[dict]:
         return data.get_books_by_month(borrow_month)
     except IntegrityError:
         return {"success":False}
+
+def borrow_history(borrower : str) -> dict:
+    try:
+        books = cache.get_borrowed_books(borrower)
+        return {
+            "borrower": borrower,
+            "books": books
+        }
+    except IntegrityError:
+        return {"success":False}
