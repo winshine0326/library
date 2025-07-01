@@ -14,3 +14,9 @@ def get_book_list() -> dict:
         return {"books_list": books}
     except IntegrityError:
         return {"success": False, "message": "리스트가 비어있습니다."}
+
+def delete_book(book_id : int) -> bool:
+    try:
+        return data.delete_book(book_id)
+    except IntegrityError:
+        return False

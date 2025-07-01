@@ -16,3 +16,7 @@ def register_book(book: BookIn):
 @router.get("")
 def get_book_list():
     return books_service.get_book_list()
+
+@router.delete("/{book_id}")
+def delete_book(book_id : int) -> bool:
+    return books_service.delete_book(book_id)
