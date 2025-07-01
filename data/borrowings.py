@@ -1,5 +1,5 @@
 from . import con, cur
-
+from typing import List
 
 def borrow_book(borrower : str, title : str) -> bool:
     cur.execute("SELECT book_id, available FROM books WHERE title = ?", (title,))
@@ -21,3 +21,14 @@ def borrow_book(borrower : str, title : str) -> bool:
     )
     con.commit()
     return True
+
+def get_books_by_month(borrow_month) -> List[dict]:
+    sql = """
+            SELECT b.borrower, bo.title, bo.author
+            FROM borrowings b
+            JOIN books bo ON b.book_id = bo.book_id
+            WHERE strftime('%Y-%m', b.borrowed_at) = ?
+        """
+    cur.execute(sql, (borrow_month,))
+    rows = cur.fetchall()
+    return [{"borrower": row[0], "title": row[1], "author": row[2]} for row in rows]
